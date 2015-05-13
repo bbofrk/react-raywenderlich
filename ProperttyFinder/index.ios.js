@@ -14,6 +14,8 @@ var styles = React.StyleSheet.create({
 
 class PropertyFinderApp extends React.Component {
   render() {
+    console.log('SearchPage.render');
+    
     return (
       <React.NavigatorIOS
         style={ styles.container }
