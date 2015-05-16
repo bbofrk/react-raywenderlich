@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var PropertyView = require('./PropertyView');
 var {
   StyleSheet,
   Image,
@@ -23,11 +24,17 @@ class SearchResults extends Component {
   }
 
   rowPressed(propertyGuid) {
-    var property = this.props.listings.filter(prop => prop.gjuid === propertyGuid)[0];
+    var property = this.props.listings.filter(prop => prop.guid === propertyGuid)[0];
+    this.props.navigator.push({
+      title: 'Property',
+      component: PropertyView,
+      passProps: {property: property}
+    });
   }
 
   renderRow(rowData, sectionID, rowID) {
-    console.log(rowData);
+    //console.log(rowData);
+    var price = rowData.price_formatted.split(' ')[0];
     return (
       <TouchableHighlight
         onPress={() => this.rowPressed(rowData.guid)}
@@ -37,7 +44,7 @@ class SearchResults extends Component {
           <View style={styles.rowContainer}>
             <Image style={styles.thumb} source={{uri: rowData.img_url}} />
             <View style={styles.textContainer}>
-              <Text style={styles.price}>${rowData.price}</Text>
+              <Text style={styles.price}>${price}</Text>
               <Text
                 style={styles.title}
                 numberOfLines={1}
